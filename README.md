@@ -125,7 +125,7 @@ Drop a `help.html` file alongside the executable to customise the help page. The
 - Windows (WinForms, Windows-only by design)
 
 ```bash
-git clone https://github.com/yourusername/stint.git
+git clone https://github.com/ccgooser/Stint.git
 cd stint
 dotnet restore
 dotnet build
