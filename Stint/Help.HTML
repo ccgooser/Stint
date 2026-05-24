@@ -1,0 +1,265 @@
+﻿<h2>Starting an Event</h2>
+<p>
+  Type a title in the <strong>Action</strong> field and press <strong>Enter</strong>. Optionally press <strong>Tab</strong> first to add a category — entering a category locks you into creating a new event regardless of any active event match.
+</p>
+<p>
+  Both the Action and Category fields offer autocomplete based on your history. Use <strong>↓</strong> to move into the suggestion list, <strong>Enter</strong> to select, and <strong>Escape</strong> to return to the field. <strong>Tab</strong> on a highlighted suggestion selects it and moves to the next field.
+</p>
+
+<h2>Retroactive Start</h2>
+<p>
+  If you forgot to start an event, prefix your entry with a time using <code>@HH:mm</code>:
+</p>
+<pre>
+  <code>@09:30 Morning standup</code>
+</pre>
+<p>The event will be recorded as having started at that time. The time prefix is stripped from the saved title. Times must be in the past — future times fall through to a normal event start.</p>
+
+<h2>Stopping an Event</h2>
+<p>There are two ways to stop a running event:</p>
+<ul>
+  <li>
+    <strong>
+      Type <code>#n</code>
+    </strong> — e.g. <code>#2</code> or <code>#02</code> to select by row index. Press <strong>Enter</strong> to stop.
+  </li>
+  <li>
+    <strong>Double-click</strong> a row in the active events list to open the edit form, then click Stop.
+  </li>
+</ul>
+
+<h2>Editing an Event</h2>
+<p>The edit form lets you change the title, category, start and stop times, stop a running event, or delete it entirely.</p>
+<ul>
+  <li>
+    <strong>
+      Type <code>!n</code>
+    </strong> — e.g. <code>!2</code> to open the edit form for active event #2.
+  </li>
+  <li>
+    <strong>Double-click</strong> a row in the active events list.
+  </li>
+  <li>
+    <strong>Click the edit link</strong> in any history report.
+  </li>
+</ul>
+
+<h2>Undoing an Accidental Stop</h2>
+<p>
+  Press <strong>Ctrl+Z</strong> immediately after stopping an event to restore it. The original start time is preserved — no time is lost.
+</p>
+
+<h2>Auto-Stop</h2>
+<p>Events are automatically stopped after a configurable maximum duration (default: 8 hours). This is intended to catch events left running overnight. You will receive a notification at the 50% mark as a heads-up, and another when the event is auto-stopped.</p>
+<p>
+  Configure or disable this in <code>config.txt</code>:
+</p>
+<pre>
+  <code>
+    max_duration_minutes=480
+    max_duration_minutes=off
+  </code>
+</pre>
+
+<h2>Reports</h2>
+<p>
+  Type a report command in the <strong>Action</strong> field and press <strong>Enter</strong>. Reports open in your default browser and are saved to the configured reports folder.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>?today</code>
+      </td>
+      <td>Totals for today — by event and by category</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?yesterday</code>
+      </td>
+      <td>Totals for yesterday</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?week</code>
+      </td>
+      <td>Totals for the current working week (Monday–today)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?month</code>
+      </td>
+      <td>Totals for the current calendar month</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?history</code>
+      </td>
+      <td>Full log of every event ever recorded</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?open</code>
+      </td>
+      <td>Opens the reports folder in Windows Explorer</td>
+    </tr>
+    <tr>
+      <td>
+        <code>?help</code>
+      </td>
+      <td>Opens this help page</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>URL Protocol — stint://</h2>
+<p>Stint registers a custom URL scheme that allows external applications, scripts, and browser links to interact with the app. The running instance receives the URL and acts on it immediately — no second instance is launched.</p>
+<p>
+  URLs can be triggered from a browser address bar, <code>Win+R</code>, shell scripts, batch files, or any application that can open a URL.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>stint://show</code>
+      </td>
+      <td>Brings the Stint popup to the foreground</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://start?title=Meeting</code>
+      </td>
+      <td>Starts a new event with the given title</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://start?title=Meeting&amp;category=DEV</code>
+      </td>
+      <td>Starts a new event with title and category</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://start?title=Meeting&amp;category=DEV&amp;time=09:30</code>
+      </td>
+      <td>Starts a new event with a retroactive start time</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://start?title=Meeting&amp;guid=your-guid</code>
+      </td>
+      <td>Starts a new event with an external reference ID (silent ignore if duplicate)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://stop?id=42</code>
+      </td>
+      <td>Stops the event with the given database ID</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://stop?guid=your-guid</code>
+      </td>
+      <td>Stops the event with the given external reference ID</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://edit?id=42</code>
+      </td>
+      <td>Opens the edit form for the given event (coming soon)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stint://report?type=today</code>
+      </td>
+      <td>
+        Generates and opens a report — types: <code>today</code> <code>yesterday</code> <code>week</code> <code>month</code> <code>history</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>URL Encoding</h3>
+<p>
+  Spaces and special characters in parameter values should be URL encoded. Spaces can be represented as <code>%20</code> or <code>+</code>.
+</p>
+<pre>
+  <code>stint://start?title=Daily%20Standup&category=MEETINGS</code>
+</pre>
+
+<h3>From a Batch File or PowerShell</h3>
+<pre>
+  <code>
+    :: Batch
+    start stint://start?title=Lunch+Break
+
+    # PowerShell
+    Start-Process "stint://start?title=Lunch+Break&category=PERSONAL"
+  </code>
+</pre>
+
+<h2>Configuration</h2>
+<p>
+  A <code>config.txt</code> file is created alongside the executable on first run. Delete it to regenerate defaults.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Setting</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>hotkey</code>
+      </td>
+      <td>
+        <code>Alt+Shift+T</code>
+      </td>
+      <td>Global hotkey to show/hide the app. Supports Alt, Shift, Ctrl modifiers.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>max_duration_minutes</code>
+      </td>
+      <td>
+        <code>480</code>
+      </td>
+      <td>
+        Auto-stop threshold in minutes. Set to <code>off</code> to disable.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>report_path</code>
+      </td>
+      <td>
+        <code>.\Reports</code>
+      </td>
+      <td>Folder where generated reports are saved.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Data</h2>
+<p>All event data is stored in a SQLite database at:</p>
+<pre>
+  <code>%LOCALAPPDATA%\Stint\stint.db</code>
+</pre>
+<p>This file persists across restarts and can be queried directly with any SQLite tool for custom reporting.</p>
+
+<hr>
+  <p style="color: #666; font-size: 12px;">Stint — For the chronically multitasking.</p>
